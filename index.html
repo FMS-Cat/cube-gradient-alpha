@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<title>cube-gradient-alpha</title>
+
+<body>
+  <canvas id="canvas" width=800 height=400></canvas>
+</body>
+
+<script src="https://threejs.org/build/three.js"></script>
+<script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera( 40, 2, 0.01, 100 );
+  camera.position.set( 0, 0, 3 );
+
+  const renderer = new THREE.WebGLRenderer( { canvas, alpha: true } );
+  renderer.setClearColor( 0xff00ff );
+
+  const loader = new THREE.GLTFLoader();
+  loader.load( './cube-gradient-alpha.glb', ( gltf ) => {
+    scene.add( gltf.scene );
+    gltf.scene.rotation.set( 1, 1, 1 );
+  } );
+
+  const update = () => {
+    renderer.render( scene, camera );
+    requestAnimationFrame( update );
+  };
+  update();
+</script>
